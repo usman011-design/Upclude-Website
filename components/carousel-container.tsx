@@ -1,23 +1,16 @@
-"use client";
+"use client"
 
-import type React from "react";
-import { useState, useRef, useEffect } from "react";
-import { CarouselSlide } from "./carousel-slide";
-import { SidebarNavigation } from "./sidebar-navigation";
-import { LoadingAnimation } from "./loading-animation";
-import { DropAnxietyInterface } from "./app-interfaces/drop-anxiety-interface";
-import { WordFindInterface } from "./app-interfaces/word-find-interface";
-import { SudokuInterface } from "./app-interfaces/sudoku-interface";
-import { ABCInterface } from "./app-interfaces/abc-interface";
-import { DrawInterface } from "./app-interfaces/draw-interface";
+import { useState, useEffect, useRef } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { CarouselSlide } from "./carousel-slide"
+import { SidebarNavigation } from "./sidebar-navigation"
+import { WordFindInterface } from "./app-interfaces/word-find-interface"
 
 export function CarouselContainer() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [prevIndex, setPrevIndex] = useState(0)
+  const [isAnimating, setIsAnimating] = useState(false)
+  const slidesRef = useRef(0) // keeps track of latest index
 
   const slides = [
     {
@@ -39,7 +32,7 @@ export function CarouselContainer() {
     {
       title: "sudoku puzzle",
       subtitle: "sudokupuzzle",
-      heading: "Challenge you brain with endless Sudoku fun.",
+      heading: "Challenge your brain with endless Sudoku fun.",
       description: "Elegant, Flexible & Rich Features",
       bgGradient: "bg-gradient-to-br from-[#698F66] via-[#78C273] to-[#698F66]",
       interface: <WordFindInterface src="../../Group 4.png" />,
@@ -60,133 +53,90 @@ export function CarouselContainer() {
       bgGradient: "bg-gradient-to-br from-[#A9A35D] via-[#E1D485] to-[#A9A35D]",
       interface: <WordFindInterface src="../../Group 6.png" />,
     },
-  ];
+  ]
+
+  // Update ref whenever activeIndex changes
+  useEffect(() => {
+    slidesRef.current = activeIndex
+  }, [activeIndex])
+
+  // Replace setInterval auto-slide with timeout tied to current state
+  useEffect(() => {
+    if (isAnimating) return
+    const t = setTimeout(() => {
+      if (!isAnimating) handleNext()
+    }, 7000) // slide every 7s when idle
+    return () => clearTimeout(t)
+  }, [activeIndex, isAnimating])
+
+  const handleNext = () => {
+    if (isAnimating) return
+
+    const currentIndex = slidesRef.current
+    const nextIndex = (currentIndex + 1) % slides.length
+
+    setPrevIndex(currentIndex)
+    setActiveIndex(nextIndex)
+    slidesRef.current = nextIndex // keep ref synced
+    setIsAnimating(true)
+  }
 
   const handleNavigate = (index: number) => {
-    if (index === activeIndex) return;
-
-    setIsLoading(true);
-
-    setTimeout(() => {
-      setActiveIndex(index);
-      if (containerRef.current) {
-        containerRef.current.scrollTo({
-          left: index * window.innerWidth, // ✅ use index directly here
-          behavior: "smooth",
-        });
-      }
-    }, 100);
-  };
-
-  const handleLoadingComplete = () => {
-    setIsLoading(false);
-  };
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    setStartX(e.pageX - (containerRef.current?.offsetLeft || 0));
-    setScrollLeft(containerRef.current?.scrollLeft || 0);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - (containerRef.current?.offsetLeft || 0);
-    const walk = (x - startX) * 2;
-    if (containerRef.current) {
-      containerRef.current.scrollLeft = scrollLeft - walk;
-    }
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-    if (containerRef.current) {
-      const newIndex = Math.round(
-        containerRef.current.scrollLeft / window.innerWidth
-      );
-      setActiveIndex(newIndex);
-    }
-  };
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setIsDragging(true);
-    setStartX(e.touches[0].pageX - (containerRef.current?.offsetLeft || 0));
-    setScrollLeft(containerRef.current?.scrollLeft || 0);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging) return;
-    const x = e.touches[0].pageX - (containerRef.current?.offsetLeft || 0);
-    const walk = (x - startX) * 2;
-    if (containerRef.current) {
-      containerRef.current.scrollLeft = scrollLeft - walk;
-    }
-  };
-
-  const handleTouchEnd = () => {
-    setIsDragging(false);
-    if (containerRef.current) {
-      const newIndex = Math.round(
-        containerRef.current.scrollLeft / window.innerWidth
-      );
-      setActiveIndex(newIndex);
-    }
-  };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (containerRef.current && !isDragging) {
-        const newIndex = Math.round(
-          containerRef.current.scrollLeft / window.innerWidth
-        );
-        setActiveIndex(newIndex);
-      }
-    };
-
-    const container = containerRef.current;
-    container?.addEventListener("scroll", handleScroll);
-    return () => container?.removeEventListener("scroll", handleScroll);
-  }, [isDragging]);
+    if (index === activeIndex || isAnimating) return
+    setPrevIndex(activeIndex)
+    setActiveIndex(index)
+    slidesRef.current = index
+    setIsAnimating(true)
+  }
 
   return (
-    <>
-      {isLoading && <LoadingAnimation onComplete={handleLoadingComplete} />}
+    <div className="relative w-full h-screen bg-neutral-950 overflow-hidden">
+      <SidebarNavigation activeIndex={activeIndex} onNavigate={handleNavigate} />
 
-      <SidebarNavigation
-        activeIndex={activeIndex}
-        onNavigate={handleNavigate}
-      />
-
-      <div
-        ref={containerRef}
-        className="flex h-screen w-full snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-      >
-        {slides.map((slide, index) => (
-          <div key={index} className="min-w-full snap-start">
-            {/* pass isActive only when this index is the active and not dragging */}
-            <CarouselSlide
-              {...slide}
-              isActive={activeIndex === index && !isDragging}
-            >
-              {slide.interface}
-            </CarouselSlide>
-          </div>
-        ))}
+      {/* Previous slide visible underneath */}
+      <div className="absolute inset-0 z-10">
+        {/* Always keep base slide visible to avoid black screen.
+            We'll switch prevIndex to the new active at the end of the animation. */}
+        <CarouselSlide {...slides[prevIndex]} isActive={true}>
+          {slides[prevIndex].interface}
+        </CarouselSlide>
       </div>
 
-      <style jsx global>{`
-        .flex::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
-    </>
-  );
+      {/* Reveal next slide from right → left */}
+      <AnimatePresence>
+        {isAnimating && (
+          <motion.div
+            key={activeIndex}
+            className="absolute inset-0 z-20 overflow-hidden"
+            initial={{ clipPath: "inset(0 0 0 100%)" }}
+            animate={{
+              clipPath: "inset(0 0 0 0%)",
+              transition: { duration: 3, ease: [0.65, 0.05, 0.36, 1] },
+            }}
+            onAnimationComplete={() => {
+              setPrevIndex(slidesRef.current)
+              setIsAnimating(false)
+            }}
+          >
+            <CarouselSlide {...slides[activeIndex]} isActive={true}>
+              {slides[activeIndex].interface}
+            </CarouselSlide>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Pagination Dots */}
+      <div className="absolute bottom-6 w-full flex justify-center gap-3 z-40">
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => handleNavigate(i)}
+            className={`h-2.5 w-2.5 rounded-full transition-all duration-500 ${
+              activeIndex === i ? "bg-white scale-110" : "bg-white/40 hover:bg-white/70"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  )
 }
