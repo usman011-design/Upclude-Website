@@ -68,7 +68,7 @@ export function CarouselSlide({
                   href={appStoreLink}
                   className="flex items-center gap-2 rounded-full bg-black px-6 py-1 text-white md:px-6 md:py-2"
                 >
-                  <img src="../../Social Icons.svg" alt="apple icon" height={20} width={20} />
+                  <img src="./Social Icons.svg" alt="apple icon" height={20} width={20} />
                   <div className="text-left">
                     <div className="text-sm md:text-[10px]">Download app</div>
                     <div className="text-[10px] font-semibold md:text-xs">App Store</div>
@@ -79,7 +79,7 @@ export function CarouselSlide({
                   href={playStoreLink}
                   className="flex items-center gap-2 rounded-full bg-white px-6 py-1 text-gray-900 md:px-6 md:py-2"
                 >
-                  <img src="../../image 14.svg" alt="play store" height={20} width={20} />
+                  <img src="./image 14.svg" alt="play store" height={20} width={20} />
                   <div className="text-left">
                     <div className="text-sm md:text-[10px]">Download app</div>
                     <div className="text-[10px] font-semibold md:text-xs">Play Store</div>
@@ -105,10 +105,10 @@ export function CarouselSlide({
         </div>
 
         <div className="flex gap-2.5 md:gap-3">
-          <a href="#"><img src="../../fi_facebook.svg" alt="facebook" height={15} width={15} /></a>
-          <a href="#"><img src="../../Vector.svg" alt="twitter" height={15} width={15} /></a>
-          <a href="#"><img src="../../Vector (1).svg" alt="youtube" height={15} width={15} /></a>
-          <a href="#"><img src="../../Vector (2).svg" alt="other" height={12} width={12} /></a>
+          <a href="#"><img src="./fi_facebook.svg" alt="facebook" height={15} width={15} /></a>
+          <a href="#"><img src="./Vector.svg" alt="twitter" height={15} width={15} /></a>
+          <a href="#"><img src="./Vector (1).svg" alt="youtube" height={15} width={15} /></a>
+          <a href="#"><img src="./Vector (2).svg" alt="other" height={12} width={12} /></a>
         </div>
       </div>
     </div>
