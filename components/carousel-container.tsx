@@ -27,7 +27,7 @@ export function CarouselContainer() {
       heading: "Find the hidden words, unlock your brainpower!",
       description: "Elegant, Flexible & Rich Features",
       bgGradient: "bg-gradient-to-br from-[#824DFF] via-[#AD8AFE] to-[#824DFF]",
-      interface: <WordFindInterface src="./group 2.png" />,
+      interface: <WordFindInterface src="./Group 2.png" />,
     },
     {
       title: "sudoku puzzle",
