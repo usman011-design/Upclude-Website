@@ -10,10 +10,10 @@ interface SidebarNavigationProps {
 export function SidebarNavigation({ activeIndex, onNavigate }: SidebarNavigationProps) {
   const navItems = [
     { image: "./depression (1) 1.png", label: "Drop Anxiety" },
-    { image: "../../search 1.png", label: "Word Find" },
-    { image: "../../game (3) 1.png", label: "Sudoku" },
-    { image: "../../cubes (1) 1.png", label: "ABC Think Tank" },
-    { image: "../../abstract-shape (1) 1.png", label: "Draw Quick" },
+    { image: "./search 1.png", label: "Word Find" },
+    { image: "./game (3) 1.png", label: "Sudoku" },
+    { image: "./cubes (1) 1.png", label: "ABC Think Tank" },
+    { image: "./abstract-shape (1) 1.png", label: "Draw Quick" },
   ]
 
   return (
