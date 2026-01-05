@@ -10,7 +10,7 @@ export function CarouselContainer() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [prevIndex, setPrevIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
-  const slidesRef = useRef(0) // keeps track of latest index
+  const slidesRef = useRef(0)
 
   const slides = [
     {
@@ -19,7 +19,7 @@ export function CarouselContainer() {
       heading: "Your instant path to anxiety relief, anytime, anywhere.",
       description: "Elegant, Flexible & Rich Features",
       bgGradient: "bg-gradient-to-br from-amber-400 via-amber-400 to-amber-300",
-      interface: <WordFindInterface src="./Group 3.png" />,
+      interface: <WordFindInterface src="../../Group 3.png" />,
     },
     {
       title: "word find",
@@ -27,7 +27,7 @@ export function CarouselContainer() {
       heading: "Find the hidden words, unlock your brainpower!",
       description: "Elegant, Flexible & Rich Features",
       bgGradient: "bg-gradient-to-br from-[#824DFF] via-[#AD8AFE] to-[#824DFF]",
-      interface: <WordFindInterface src="./Group 2.png" />,
+      interface: <WordFindInterface src="../../group 2.png" />,
     },
     {
       title: "sudoku puzzle",
@@ -35,7 +35,7 @@ export function CarouselContainer() {
       heading: "Challenge your brain with endless Sudoku fun.",
       description: "Elegant, Flexible & Rich Features",
       bgGradient: "bg-gradient-to-br from-[#698F66] via-[#78C273] to-[#698F66]",
-      interface: <WordFindInterface src="./Group 4.png" />,
+      interface: <WordFindInterface src="../../Group 4.png" />,
     },
     {
       title: "abc think tank",
@@ -43,7 +43,7 @@ export function CarouselContainer() {
       heading: "Learn ABCs and 123s through fun play!",
       description: "Elegant, Flexible & Rich Features",
       bgGradient: "bg-gradient-to-br from-[#66808F] via-[#73ACC2] to-[#66808F]",
-      interface: <WordFindInterface src="./Group 5.png" />,
+      interface: <WordFindInterface src="../../Group 5.png" />,
     },
     {
       title: "draw quick draw",
@@ -51,21 +51,19 @@ export function CarouselContainer() {
       heading: "Draw any shape and watch the app instantly recognize it.",
       description: "Elegant, Flexible & Rich Features",
       bgGradient: "bg-gradient-to-br from-[#A9A35D] via-[#E1D485] to-[#A9A35D]",
-      interface: <WordFindInterface src="./Group 6.png" />,
+      interface: <WordFindInterface src="../../Group 6.png" />,
     },
   ]
 
-  // Update ref whenever activeIndex changes
   useEffect(() => {
     slidesRef.current = activeIndex
   }, [activeIndex])
 
-  // Replace setInterval auto-slide with timeout tied to current state
   useEffect(() => {
     if (isAnimating) return
     const t = setTimeout(() => {
       if (!isAnimating) handleNext()
-    }, 7000) // slide every 7s when idle
+    }, 7000)
     return () => clearTimeout(t)
   }, [activeIndex, isAnimating])
 
@@ -77,7 +75,7 @@ export function CarouselContainer() {
 
     setPrevIndex(currentIndex)
     setActiveIndex(nextIndex)
-    slidesRef.current = nextIndex // keep ref synced
+    slidesRef.current = nextIndex
     setIsAnimating(true)
   }
 
@@ -95,8 +93,6 @@ export function CarouselContainer() {
 
       {/* Previous slide visible underneath */}
       <div className="absolute inset-0 z-10">
-        {/* Always keep base slide visible to avoid black screen.
-            We'll switch prevIndex to the new active at the end of the animation. */}
         <CarouselSlide {...slides[prevIndex]} isActive={true}>
           {slides[prevIndex].interface}
         </CarouselSlide>
@@ -125,15 +121,16 @@ export function CarouselContainer() {
         )}
       </AnimatePresence>
 
-      {/* Pagination Dots */}
-      <div className="absolute bottom-6 w-full flex justify-center gap-3 z-40">
+      {/* Pagination Dots - Made responsive with dynamic sizing */}
+      <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 w-full flex justify-center gap-2 sm:gap-2.5 md:gap-3 z-40 px-4">
         {slides.map((_, i) => (
           <button
             key={i}
             onClick={() => handleNavigate(i)}
-            className={`h-2.5 w-2.5 rounded-full transition-all duration-500 ${
+            className={`h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full transition-all duration-500 ${
               activeIndex === i ? "bg-white scale-110" : "bg-white/40 hover:bg-white/70"
             }`}
+            aria-label={`Go to slide ${i + 1}`}
           />
         ))}
       </div>
