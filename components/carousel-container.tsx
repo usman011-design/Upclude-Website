@@ -20,7 +20,7 @@ const slides = [
       description: "Elegant, Flexible & Rich Features",
       bgGradient: "bg-gradient-to-br from-amber-400 via-amber-400 to-amber-300",
       appStoreLink: "",
-      interface: <WordFindInterface src="../../Group 3.png" />,
+      interface: <WordFindInterface src="./Group 3.png" />,
     },
     {
       title: "word find",
@@ -29,7 +29,7 @@ const slides = [
       description: "Elegant, Flexible & Rich Features",
       bgGradient: "bg-gradient-to-br from-[#824DFF] via-[#AD8AFE] to-[#824DFF]",
       appStoreLink: "https://apps.apple.com/us/app/word-find-crossword-game/id6752356325",
-      interface: <WordFindInterface src="../../group 2.png" />,
+      interface: <WordFindInterface src="./Group 2.png" />,
     },
     {
       title: "sudoku puzzle",
@@ -38,7 +38,7 @@ const slides = [
       description: "Elegant, Flexible & Rich Features",
       bgGradient: "bg-gradient-to-br from-[#698F66] via-[#78C273] to-[#698F66]",
       appStoreLink: "https://apps.apple.com/us/app/sudoku-puzzle-number-games/id6751170302",
-      interface: <WordFindInterface src="../../Group 4.png" />,
+      interface: <WordFindInterface src="./Group 4.png" />,
     },
     {
       title: "abc think tank",
@@ -47,7 +47,7 @@ const slides = [
       description: "Elegant, Flexible & Rich Features",
       bgGradient: "bg-gradient-to-br from-[#66808F] via-[#73ACC2] to-[#66808F]",
       appStoreLink: "https://apps.apple.com/us/app/abc-think-tank-abc-123-kids/id6748153790",
-      interface: <WordFindInterface src="../../Group 5.png" />,
+      interface: <WordFindInterface src="./Group 5.png" />,
     },
     {
       title: "draw quick draw",
@@ -56,7 +56,7 @@ const slides = [
       description: "Elegant, Flexible & Rich Features",
       bgGradient: "bg-gradient-to-br from-[#A9A35D] via-[#E1D485] to-[#A9A35D]",
       appStoreLink: "https://apps.apple.com/us/app/draw-quick-draw-shapes-game/id6749594064",
-      interface: <WordFindInterface src="../../Group 6.png" />,
+      interface: <WordFindInterface src="./Group 6.png" />,
     },
   ]
 
