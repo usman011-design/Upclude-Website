@@ -12,14 +12,15 @@ export function CarouselContainer() {
   const [isAnimating, setIsAnimating] = useState(false)
   const slidesRef = useRef(0)
 
-  const slides = [
+const slides = [
     {
       title: "drop anxiety",
       subtitle: "dropanxiety",
       heading: "Your instant path to anxiety relief, anytime, anywhere.",
       description: "Elegant, Flexible & Rich Features",
       bgGradient: "bg-gradient-to-br from-amber-400 via-amber-400 to-amber-300",
-      interface: <WordFindInterface src="./Group 3.png" />,
+      appStoreLink: "",
+      interface: <WordFindInterface src="../../Group 3.png" />,
     },
     {
       title: "word find",
@@ -27,7 +28,8 @@ export function CarouselContainer() {
       heading: "Find the hidden words, unlock your brainpower!",
       description: "Elegant, Flexible & Rich Features",
       bgGradient: "bg-gradient-to-br from-[#824DFF] via-[#AD8AFE] to-[#824DFF]",
-      interface: <WordFindInterface src="./Group 2.png" />,
+      appStoreLink: "https://apps.apple.com/us/app/word-find-crossword-game/id6752356325",
+      interface: <WordFindInterface src="../../group 2.png" />,
     },
     {
       title: "sudoku puzzle",
@@ -35,7 +37,8 @@ export function CarouselContainer() {
       heading: "Challenge your brain with endless Sudoku fun.",
       description: "Elegant, Flexible & Rich Features",
       bgGradient: "bg-gradient-to-br from-[#698F66] via-[#78C273] to-[#698F66]",
-      interface: <WordFindInterface src="./Group 4.png" />,
+      appStoreLink: "https://apps.apple.com/us/app/sudoku-puzzle-number-games/id6751170302",
+      interface: <WordFindInterface src="../../Group 4.png" />,
     },
     {
       title: "abc think tank",
@@ -43,7 +46,8 @@ export function CarouselContainer() {
       heading: "Learn ABCs and 123s through fun play!",
       description: "Elegant, Flexible & Rich Features",
       bgGradient: "bg-gradient-to-br from-[#66808F] via-[#73ACC2] to-[#66808F]",
-      interface: <WordFindInterface src="./Group 5.png" />,
+      appStoreLink: "https://apps.apple.com/us/app/abc-think-tank-abc-123-kids/id6748153790",
+      interface: <WordFindInterface src="../../Group 5.png" />,
     },
     {
       title: "draw quick draw",
@@ -51,7 +55,8 @@ export function CarouselContainer() {
       heading: "Draw any shape and watch the app instantly recognize it.",
       description: "Elegant, Flexible & Rich Features",
       bgGradient: "bg-gradient-to-br from-[#A9A35D] via-[#E1D485] to-[#A9A35D]",
-      interface: <WordFindInterface src="./Group 6.png" />,
+      appStoreLink: "https://apps.apple.com/us/app/draw-quick-draw-shapes-game/id6749594064",
+      interface: <WordFindInterface src="../../Group 6.png" />,
     },
   ]
 
